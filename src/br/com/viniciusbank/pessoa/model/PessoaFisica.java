@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class PessoaFisica extends Pessoa{
 
-    private String cpf;
+    private String CPF;
     private PessoaFisica mae;
 
 
@@ -13,18 +13,18 @@ public class PessoaFisica extends Pessoa{
     }
     public PessoaFisica(String nome, LocalDate nascimento, String cpf, PessoaFisica mae) {
         super(nome, nascimento);
-        this.cpf = cpf;
+        this.CPF = CPF;
         this.mae = mae;
     }
 
 
 
-    public String getCpf() {
-        return cpf;
+    public String getCPF() {
+        return CPF;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
     }
 
     public PessoaFisica getMae() {
@@ -33,5 +33,13 @@ public class PessoaFisica extends Pessoa{
 
     public void setMae(PessoaFisica mae) {
         this.mae = mae;
+    }
+
+    @Override
+    public String toString() {
+        return "PessoaFisica{" +
+                "CPF='" + CPF + '\'' +
+                ", mae=" + mae +
+                "} " + super.toString();
     }
 }
