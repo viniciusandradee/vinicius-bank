@@ -24,6 +24,41 @@ public class ContaCorrente extends Conta {
         this.limite = limite;
     }
 
+
+
+    @Override
+    public boolean sacar(double valor) {
+
+        double valorDisponivel = getSaldo() + getLimite();
+
+        if (valor <= 0) {
+            return false;
+        } if (valorDisponivel < valor) {
+            return false;
+        }
+        setSaldo(getSaldo()-valor);
+        return true;
+    }
+
+    /*
+    @Override
+    public boolean sacar(double valor) {
+
+        double valorDisponivel = getSaldo() + getLimite();
+
+        if (valor <= 0) {
+            return false;
+        } else if (valorDisponivel < valor) {
+            return false;
+        } else {
+            setSaldo(getSaldo()-valor);
+            return true;
+        }
+    }
+     */
+
+
+
     @Override
     public String toString() {
         return "ContaCorrente{" +
