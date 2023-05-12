@@ -8,44 +8,53 @@ import br.com.viniciusbank.pessoa.model.PessoaJuridica;
 
 import javax.swing.*;
 import java.time.LocalDate;
+import java.time.MonthDay;
 
 public class Main {
+
+    public static Agencia novaAgencia(String nome, Banco banco) {
+        Agencia agencia = new Agencia();
+        agencia.setNome(nome);
+        banco.addAgencia(agencia);
+        return agencia;
+    }
+
+    public static PessoaFisica novaPessoa(String nome, LocalDate nascimento, String CPF, PessoaFisica mae) {
+        PessoaFisica pf = new PessoaFisica();
+        pf.setCPF(CPF);
+        pf.setNascimento(nascimento);
+        pf.setNome(nome);
+        pf.setMae(mae);
+        return pf;
+    }
+
+    public static ContaCorrente novaContaCorrente(Agencia agencia, Pessoa titular, double limite) {
+        ContaCorrente cc = new ContaCorrente();
+        cc.setAgencia(agencia);
+        cc.setTitular(titular);
+        cc.setLimite(limite);
+        agencia.addConta(cc);
+        return cc;
+    }
+
+    public static ContaPoupanca novaContaPoupanca(Agencia agencia, Pessoa titular, MonthDay dia) {
+        ContaPoupanca cp = new ContaPoupanca();
+        cp.setAniversario(dia.getDayOfMonth());
+        cp.setAgencia(agencia);
+        cp.setTitular(titular);
+        agencia.addConta(cp);
+        return cp;
+    }
+
+
     public static void main(String[] args) {
 
         Banco vinicius = new Banco("Vinicius Bank");
-
-        Agencia mooca = new Agencia();
-        mooca.setBanco(vinicius);
-        mooca.setNome("Osasco");
-        mooca.setNumero("1-9");
-
-        //var nomeMae = JOptionPane.showInputDialog("Informe o nome da mãe");
-
-        PessoaFisica mae = new PessoaFisica();
-        //mae.setNome(nomeMae);
-        mae.setNome("Silvia");
-        mae.setNascimento(LocalDate.of(1977, 4, 22));
-        mae.setCPF("213241651-20");
-
-        PessoaFisica vini = new PessoaFisica();
-        vini.setCPF("213246546-50");
-        vini.setNascimento(LocalDate.of(2005, 5, 11));
-        vini.setNome("Vinicius Andrade");
-        vini.setMae(mae);
-
-        ContaCorrente cc = new ContaCorrente();
-        cc.setAgencia(mooca);
-        cc.setTitular(vini);
-        cc.setSaldo(1000);
-        cc.setLimite(500);
-        cc.setNumero("1-9");
-
-        ContaPoupanca cp = new ContaPoupanca();
-        cp.setNumero("2-8");
-        cp.setAniversario(4);
-        cp.setAgencia(mooca);
-        cp.setSaldo(500_000);
-        cp.setTitular(mae);
+        Agencia mooca = novaAgencia("Mooca", vinicius);
+        PessoaFisica mae = novaPessoa("Silvia Andrade", LocalDate.of(1977, 4, 22), "213241651-20", null);
+        PessoaFisica vini = novaPessoa("Vinicius Andrade", LocalDate.of(2005, 5, 11), "213246546-50", mae);
+        ContaCorrente cc = novaContaCorrente(mooca, vini, 2000);
+        ContaPoupanca cp = novaContaPoupanca(mooca, mae, MonthDay.now());
 
         PessoaJuridica holding = new PessoaJuridica();
         holding.setCNPJ("1231312/0001-09");
