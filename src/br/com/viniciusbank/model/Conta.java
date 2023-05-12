@@ -4,6 +4,7 @@ import br.com.viniciusbank.pessoa.model.Pessoa;
 
 public abstract class Conta {
 
+
     private String numero;
     private Agencia agencia;
     private Pessoa titular;
